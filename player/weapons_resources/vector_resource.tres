@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="Weapons_Resource" load_steps=2 format=3 uid="uid://clr60wjeusg01"]
+
+[ext_resource type="Script" uid="uid://d36vgxck6p0rd" path="res://player/weapon_resource.gd" id="1_3cqk6"]
+
+[resource]
+script = ExtResource("1_3cqk6")
+Weapon_Name = "Vector"
+Weapon_Transition = "parameters/Vector_Transitions/transition_request"
+Weapon_Aimer = "parameters/Vector_Aimer/request"
+Weapon_Shoot = "parameters/Vector_Shoot/request"
+Weapon_Equip = "parameters/Vector_Equip/request"
+Weapon_Reload = "parameters/Vector_Reload/request"
+Equip_Anim = "Vector_Equip"
+Unequip_Anim = "parameters/Vector_Unequip/request"
+Idle_Anim = "Vector_Idle"
+Shoot_Anim = "Vector_Shoot"
+Sprint_Anim = "Vector_Sprint"
+Aim_Anim = "Vector_Aim"
+Aim_Shoot_Anim = "Vector_Aimer"
+Walk_Anim = "Vector_Walk"
+Jump_Anim = "Vector_Jump"
+Current_Ammo = 30
+Reserve_Ammo = 90
+Magazine = 30
+MaxAmmo = 270
+Autofire = true
+Type = 1
+Weapon_Range = 2000
+Damage = 28
+Damage_Falloff = 1.0
+Damage_Falloff_Floor = 15
+Base_Inaccuracy = 50.0
+Movement_Inaccuracy = 20.0
+Aim_Inaccuracy = 0.5
+Jump_Inaccuracy = 1.2
+Fire_Rate = 0.08
+Reload_Time = 3.0
+Num_Shots = 1
+metadata/_custom_type_script = "uid://d36vgxck6p0rd"
