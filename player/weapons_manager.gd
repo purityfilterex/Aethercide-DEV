@@ -132,7 +132,7 @@ func Initialize(_start_weapons: Array):
 	for i in _start_weapons:
 		Weapon_Stack.push_back(i) #Add out start weapons
 		
-	Current_Weapon = Weapon_List[Weapon_Stack[0]] #set first weapon in stack to current
+	Current_Weapon = Weapon_List[Weapon_Stack[1]] #set first weapon in stack to current
 	emit_signal("Update_Weapon_Stack", Weapon_Stack)
 	enter()
 	

@@ -46,7 +46,7 @@ light_volumetric_fog_energy = 1.37
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_u52ul")
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." groups=["StickyWall"]]
 physics_interpolation_mode = 1
 transform = Transform3D(3.53, 0, 0, 0, 3.53, 0, 0, 0, 3.53, 1.11, 2.985, 4.565)
 top_level = true

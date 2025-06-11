@@ -5,19 +5,22 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wln66"]
 margin = 0.0
-size = Vector3(0.12, 1.1, 0.12)
+size = Vector3(0.08, 0.948906, 0.08)
 
 [node name="Crossbow_Bolt" type="RigidBody3D"]
 top_level = true
-collision_layer = 5
+collision_layer = 4
 collision_mask = 5
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 5
 script = ExtResource("1_wln66")
 
 [node name="crossbow_bolt" parent="." instance=ExtResource("1_1s2ha")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.53)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0.270284)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1.18)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.44452e-09, 0.10091)
 top_level = true
 shape = SubResource("BoxShape3D_wln66")
 
