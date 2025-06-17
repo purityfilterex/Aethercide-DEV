@@ -51,32 +51,39 @@ func _ready():
 	Initialize(Start_Weapons) #enter state machine
 	
 func _physics_process(delta):
-	if get_is_on_floor() == false:
-		await get_tree().create_timer(%AdsTimer.get_time_left()).timeout
-		curr_anim = JUMP
-		handle_animations()
-	elif Input.is_action_pressed("ads"):
-		await get_tree().create_timer(%AdsTimer.get_time_left()).timeout
-		curr_anim = AIM
-		handle_animations()
-		%AdsTimer.start()
-	elif get_speed() > 3.2 and Input.is_action_pressed("dash"):
-		await get_tree().create_timer(%AdsTimer.get_time_left()).timeout
-		curr_anim = SPRINT
-		handle_animations()
-	elif get_speed() > 3.2:
-		await get_tree().create_timer(%AdsTimer.get_time_left()).timeout
-		curr_anim = WALK
-		handle_animations()
-	else:
-		await get_tree().create_timer(%AdsTimer.get_time_left()).timeout
-		curr_anim = IDLE
-		handle_animations()
+	if !is_shot:
+		if get_is_on_floor() == false:
+			await get_tree().create_timer(%AdsTimer.get_time_left()).timeout
+			await get_tree().create_timer(%SprintTimer.get_time_left()).timeout
+			curr_anim = JUMP
+			handle_animations()
+			%JumpTimer.start()
+		elif Input.is_action_pressed("ads"):
+			await get_tree().create_timer(%AdsTimer.get_time_left()).timeout
+			curr_anim = AIM
+			handle_animations()
+			%AdsTimer.start()
+		elif get_speed() > 5.1 and Input.is_action_pressed("dash"):
+			await get_tree().create_timer(%AdsTimer.get_time_left()).timeout
+			await get_tree().create_timer(%JumpTimer.get_time_left()).timeout
+			curr_anim = SPRINT
+			handle_animations()
+			%SprintTimer.start()
+		elif get_speed() > 3.2:
+			await get_tree().create_timer(%AdsTimer.get_time_left()).timeout
+			await get_tree().create_timer(%JumpTimer.get_time_left()).timeout
+			curr_anim = WALK
+			handle_animations()
+		else:
+			await get_tree().create_timer(%AdsTimer.get_time_left()).timeout
+			await get_tree().create_timer(%SprintTimer.get_time_left()).timeout
+			curr_anim = IDLE
+			handle_animations()
 	
 	#Autofire
-	if Current_Weapon.Autofire == true and Input.is_action_pressed("shoot") and is_shot == false and (curr_anim == AIM or curr_anim == AIMSHOOT) and curr_anim != SPRINT:
+	if Current_Weapon.Autofire == true and Input.is_action_pressed("shoot") and Input.is_action_pressed("ads") and curr_anim != SPRINT:
 		aimshoot()
-	elif Current_Weapon.Autofire == true and Input.is_action_pressed("shoot") and !curr_anim == AIM and curr_anim != SPRINT:
+	elif Current_Weapon.Autofire == true and Input.is_action_pressed("shoot") and not Input.is_action_pressed("ads") and curr_anim != SPRINT:
 		shoot()
 	
 func Is_Aiming():
@@ -197,9 +204,8 @@ func shoot():
 	if Current_Weapon.Current_Ammo > 0:
 		if is_reloading == false and is_shot == false:
 			is_shot = true
-			
+			print(str(%AnimTimer.get_time_left()))
 			await get_tree().create_timer(%AnimTimer.get_time_left()).timeout
-			
 			for n in Current_Weapon.Num_Shots: #For Shotguns
 				var Camera_Collision = Get_Camera_Collision()
 			
@@ -304,8 +310,12 @@ func Hit_Scan_Collision(Collision_Point):
 		world.add_child(Hit_Indicator)
 		Hit_Indicator.global_translate(Bullet_Collision.position)
 		
-		Hit_Scan_Damage(Bullet_Collision.collider)
+		Hit_Scan_Damage(Bullet_Collision.collider, Bullet_Direction, Bullet_Collision.position)
 
-func Hit_Scan_Damage(Collider):
+func Hit_Scan_Damage(Collider, Direction, Position):
 	if Collider.is_in_group("Target") and Collider.has_method("Hit_Successful"):
-		Collider.Hit_Successful(Current_Weapon.Damage - Falloff)
+		Collider.Hit_Successful(Current_Weapon.Damage - Falloff, Direction, Position)
+
+
+func _on_pickup_detection_body_entered(body: Node3D) -> void:
+	pass

@@ -13,7 +13,7 @@ var speed
 @export var ground_decel = 12.0
 @export var ground_friction = 4
 
-@export var air_cap = 0.05
+@export var air_cap = 0.5
 @export var air_accel = 800.0
 @export var air_move_speed = 500.0
 
@@ -100,6 +100,7 @@ func _handle_air_physics(delta):
 		var accel_speed = air_accel * air_move_speed * delta
 		accel_speed = min(accel_speed, add_speed_till_cap)
 		self.velocity += accel_speed * wish_dir
+		
 
 func _physics_process(delta):
 	var input_dir = Input.get_vector("left", "right", "up", "down").normalized()

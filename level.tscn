@@ -1,17 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://bupr336cx2fp5"]
+[gd_scene load_steps=11 format=3 uid="uid://bupr336cx2fp5"]
 
 [ext_resource type="PackedScene" uid="uid://ciphx5jdulstk" path="res://player/player.tscn" id="1_u52ul"]
 [ext_resource type="PackedScene" uid="uid://mfrpbag542ju" path="res://boxtarget.tscn" id="2_vonw3"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vonw3"]
-albedo_color = Color(0.400425, 0.415609, 0.419253, 1)
+[ext_resource type="PackedScene" uid="uid://crnxd2ditybyc" path="res://player/Spawnable_Weapons/pistol.tscn" id="3_0b4ue"]
+[ext_resource type="PackedScene" uid="uid://drdcqp5ww12eo" path="res://player/Spawnable_Weapons/vector.tscn" id="4_f2txt"]
+[ext_resource type="Script" uid="uid://dcnpngcl3e71q" path="res://addons/godotvmf/src/VMFNode.gd" id="5_n6hdu"]
+[ext_resource type="ArrayMesh" uid="uid://dfuouofcse51o" path="res://geometry/TESTLEVEL_vmf_import.mesh" id="6_km5ld"]
+[ext_resource type="Shape3D" uid="uid://kuuupibq2iv2" path="res://geometry/TESTLEVEL_vmf_collision_surface_prop_default.res" id="7_i2t4f"]
 
 [sub_resource type="Environment" id="Environment_u52ul"]
 background_mode = 1
 background_color = Color(0.455185, 0.864261, 0.92687, 1)
-ambient_light_energy = 1.3
+background_energy_multiplier = 0.78
+ambient_light_color = Color(0.0619848, 0.159102, 0.21785, 1)
+ambient_light_energy = 1.51
+tonemap_mode = 2
+tonemap_exposure = 1.2
+tonemap_white = 16.0
 ssr_enabled = true
+ssr_max_steps = 128
+ssr_fade_in = 0.212132
+ssr_fade_out = 1.7411
+ssao_enabled = true
+ssao_radius = 22.25
+ssao_intensity = 4.7
+ssao_power = 0.274516
+ssao_detail = 5.0
+ssao_horizon = 1.0
+ssao_light_affect = 0.27
 ssil_enabled = true
+ssil_radius = 1.06
+ssil_intensity = 5.16
+ssil_sharpness = 0.73
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
 sdfgi_energy = 1.04
@@ -26,36 +46,69 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.0263
 volumetric_fog_ambient_inject = 1.8
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cye3"]
+albedo_color = Color(0.93408, 0.93408, 0.93408, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2orkt"]
+albedo_color = Color(0.356216, 0.329422, 0.287034, 1)
+
 [node name="Node3D" type="Node3D"]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-use_collision = true
-size = Vector3(20, 1, 20)
-material = SubResource("StandardMaterial3D_vonw3")
-
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_u52ul")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.388001, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.804, -3.02986, 47.5305)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 6, 12)
-light_color = Color(1, 0.903033, 0.751426, 1)
-light_indirect_energy = 1.547
-light_volumetric_fog_energy = 1.37
+transform = Transform3D(0.987688, -0.139508, 0.0707764, 0, 0.452435, 0.891797, -0.156434, -0.880818, 0.446864, 0, 27.2829, 47.501)
+light_color = Color(1, 0.966309, 0.950017, 1)
+light_energy = 0.9
+light_indirect_energy = 2.586
+light_volumetric_fog_energy = 3.24
+light_specular = 0.35
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_normal_bias = 4.6
+shadow_reverse_cull_face = true
+shadow_opacity = 0.55
+shadow_blur = 0.945
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 262.5
+directional_shadow_pancake_size = 0.8
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_u52ul")
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." groups=["StickyWall"]]
-physics_interpolation_mode = 1
-transform = Transform3D(3.53, 0, 0, 0, 3.53, 0, 0, 0, 3.53, 1.11, 2.985, 4.565)
-top_level = true
-layers = 5
-use_collision = true
-collision_layer = 5
-collision_mask = 5
-
 [node name="Target" parent="." instance=ExtResource("2_vonw3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.42463, 0.80185, 1.81043)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.42463, 2.72592, 32.8282)
 collision_layer = 5
 collision_mask = 7
+
+[node name="Weapons" type="Node3D" parent="."]
+
+[node name="Pistol" parent="Weapons" instance=ExtResource("3_0b4ue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0621, 3.1194, 32.3443)
+
+[node name="Vector" parent="Weapons" instance=ExtResource("4_f2txt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.315, 1.79149, 31.1415)
+
+[node name="VMFNode" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 32.6526)
+script = ExtResource("5_n6hdu")
+use_external_file = true
+vmf = "C:/Users/purit/Downloads/TESTLEVEL.vmf"
+metadata/_custom_type_script = "uid://dcnpngcl3e71q"
+
+[node name="Geometry" type="MeshInstance3D" parent="VMFNode"]
+layers = 15
+mesh = ExtResource("6_km5ld")
+surface_material_override/0 = SubResource("StandardMaterial3D_8cye3")
+surface_material_override/1 = SubResource("StandardMaterial3D_2orkt")
+
+[node name="surface_prop_default" type="StaticBody3D" parent="VMFNode/Geometry"]
+collision_layer = 15
+collision_mask = 15
+metadata/surface_prop = "default"
+
+[node name="collision" type="CollisionShape3D" parent="VMFNode/Geometry/surface_prop_default"]
+shape = ExtResource("7_i2t4f")
+
+[node name="Entities" type="Node3D" parent="VMFNode"]

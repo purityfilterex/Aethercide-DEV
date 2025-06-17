@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://ciphx5jdulstk"]
+[gd_scene load_steps=87 format=3 uid="uid://ciphx5jdulstk"]
 
 [ext_resource type="Script" uid="uid://ra3kdr52tosq" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://cxgk58r6a45js" path="res://player/HUD.gd" id="2_hg6s5"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://jj68785ec8fm" path="res://player/assets/vectorglb.glb" id="5_boad6"]
 [ext_resource type="PackedScene" uid="uid://crqitw2o1i15e" path="res://player/assets/pistol.glb" id="6_boad6"]
 [ext_resource type="PackedScene" uid="uid://bwp6q1gudcp4g" path="res://crossbowbolt.tscn" id="10_8t03j"]
+[ext_resource type="Script" uid="uid://cbv61jisxiibd" path="res://player/interact_ray.gd" id="11_2ieo8"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2ieo8"]
 
@@ -41,14 +42,14 @@ Autofire = false
 Type = 1
 Projectile_To_Load = ExtResource("10_8t03j")
 Projectile_Velocity = 25
-Weapon_Range = 2000
+Weapon_Range = 3000
 Damage = 25
 Damage_Falloff = 0.7
 Damage_Falloff_Floor = 20
 Base_Inaccuracy = 7.0
 Movement_Inaccuracy = 30.0
 Aim_Inaccuracy = 0.5
-Jump_Inaccuracy = 1.5
+Jump_Inaccuracy = 2.5
 Fire_Rate = 0.15
 Reload_Time = 3.0
 Num_Shots = 1
@@ -1333,13 +1334,13 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_rgyib"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_rgyib"]
 resource_name = "Pistol_Aimer"
 fadein_curve = SubResource("Curve_boad6")
-fadeout_time = 0.1
+fadeout_time = 0.2
 fadeout_curve = SubResource("Curve_rgyib")
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_boad6"]
@@ -1352,18 +1353,27 @@ animation = &"pistol_activate"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_boad6"]
 animation = &"pistol_jump"
 
+[sub_resource type="Curve" id="Curve_ebec5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_qkite"]
 resource_name = "Reload"
 fadein_time = 0.36
-fadeout_time = 0.1
+fadeout_time = 0.25
+fadeout_curve = SubResource("Curve_ebec5")
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ysk11"]
 animation = &"pistol_reload"
 
+[sub_resource type="Curve" id="Curve_2ieo8"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_wodsf"]
 resource_name = "Pistol_Shoot"
-fadein_time = 0.02
-fadeout_time = 0.05
+fadeout_time = 0.2
+fadeout_curve = SubResource("Curve_2ieo8")
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ebec5"]
 animation = &"pistol_shoot"
@@ -1378,7 +1388,7 @@ point_count = 2
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_tqiix"]
 resource_name = "Pistol_Transitions"
 sync = true
-xfade_time = 0.17
+xfade_time = 0.2
 xfade_curve = SubResource("Curve_32hag")
 input_0/name = "Pistol_Idle"
 input_0/auto_advance = false
@@ -1491,39 +1501,39 @@ animation = &"vector_unactivate"
 animation = &"vector_walk"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_e7oew"]
-graph_offset = Vector2(238.786, 361.465)
+graph_offset = Vector2(-83.0349, 22.342)
 nodes/Main_Transition/node = SubResource("AnimationNodeTransition_boad6")
-nodes/Main_Transition/position = Vector2(1680, 940)
+nodes/Main_Transition/position = Vector2(1920, 860)
 nodes/PistolIdleAnim/node = SubResource("AnimationNodeAnimation_hg6s5")
 nodes/PistolIdleAnim/position = Vector2(-140, -220)
 nodes/Pistol_Aim_Anim/node = SubResource("AnimationNodeAnimation_8t03j")
 nodes/Pistol_Aim_Anim/position = Vector2(-100, 320)
 nodes/Pistol_Aim_Shoot/node = SubResource("AnimationNodeAnimation_2ieo8")
-nodes/Pistol_Aim_Shoot/position = Vector2(900, 380)
+nodes/Pistol_Aim_Shoot/position = Vector2(780, 380)
 nodes/Pistol_Aimer/node = SubResource("AnimationNodeOneShot_rgyib")
-nodes/Pistol_Aimer/position = Vector2(920, 80)
+nodes/Pistol_Aimer/position = Vector2(800, 80)
 nodes/Pistol_Equip/node = SubResource("AnimationNodeOneShot_boad6")
-nodes/Pistol_Equip/position = Vector2(720, 80)
+nodes/Pistol_Equip/position = Vector2(600, 80)
 nodes/Pistol_Equip_Anim/node = SubResource("AnimationNodeAnimation_wodsf")
-nodes/Pistol_Equip_Anim/position = Vector2(720, 380)
+nodes/Pistol_Equip_Anim/position = Vector2(600, 380)
 nodes/Pistol_Jump/node = SubResource("AnimationNodeAnimation_boad6")
 nodes/Pistol_Jump/position = Vector2(120, 400)
 nodes/Pistol_Reload/node = SubResource("AnimationNodeOneShot_qkite")
-nodes/Pistol_Reload/position = Vector2(1120, 80)
+nodes/Pistol_Reload/position = Vector2(1000, 80)
 nodes/Pistol_Reload_Anim/node = SubResource("AnimationNodeAnimation_ysk11")
-nodes/Pistol_Reload_Anim/position = Vector2(1100, 380)
+nodes/Pistol_Reload_Anim/position = Vector2(980, 380)
 nodes/Pistol_Shoot/node = SubResource("AnimationNodeOneShot_wodsf")
-nodes/Pistol_Shoot/position = Vector2(520, 80)
+nodes/Pistol_Shoot/position = Vector2(1440, 80)
 nodes/Pistol_Shoot_Anim/node = SubResource("AnimationNodeAnimation_ebec5")
-nodes/Pistol_Shoot_Anim/position = Vector2(520, 380)
+nodes/Pistol_Shoot_Anim/position = Vector2(1440, 380)
 nodes/Pistol_Sprint_Anim/node = SubResource("AnimationNodeAnimation_yllr7")
 nodes/Pistol_Sprint_Anim/position = Vector2(-140, 140)
 nodes/Pistol_Transitions/node = SubResource("AnimationNodeTransition_tqiix")
 nodes/Pistol_Transitions/position = Vector2(280, 80)
 nodes/Pistol_Unequip/node = SubResource("AnimationNodeOneShot_ebec5")
-nodes/Pistol_Unequip/position = Vector2(1340, 80)
+nodes/Pistol_Unequip/position = Vector2(1220, 80)
 nodes/Pistol_Unequip_Anim/node = SubResource("AnimationNodeAnimation_32hag")
-nodes/Pistol_Unequip_Anim/position = Vector2(1320, 380)
+nodes/Pistol_Unequip_Anim/position = Vector2(1200, 380)
 nodes/Pistol_Walk_Anim/node = SubResource("AnimationNodeAnimation_kb6p2")
 nodes/Pistol_Walk_Anim/position = Vector2(-140, -40)
 nodes/Vector_Aim_Anim/node = SubResource("AnimationNodeAnimation_rgyib")
@@ -1558,10 +1568,20 @@ nodes/Vector_Unequip_Anim/node = SubResource("AnimationNodeAnimation_7pqkx")
 nodes/Vector_Unequip_Anim/position = Vector2(1320, 1260)
 nodes/Vector_Walk/node = SubResource("AnimationNodeAnimation_uw77l")
 nodes/Vector_Walk/position = Vector2(-240, 800)
-nodes/output/position = Vector2(1860, 960)
-node_connections = [&"Main_Transition", 0, &"Pistol_Unequip", &"Main_Transition", 1, &"Vector_Unequip", &"Pistol_Aimer", 0, &"Pistol_Equip", &"Pistol_Aimer", 1, &"Pistol_Aim_Shoot", &"Pistol_Equip", 0, &"Pistol_Shoot", &"Pistol_Equip", 1, &"Pistol_Equip_Anim", &"Pistol_Reload", 0, &"Pistol_Aimer", &"Pistol_Reload", 1, &"Pistol_Reload_Anim", &"Pistol_Shoot", 0, &"Pistol_Transitions", &"Pistol_Shoot", 1, &"Pistol_Shoot_Anim", &"Pistol_Transitions", 0, &"PistolIdleAnim", &"Pistol_Transitions", 1, &"Pistol_Walk_Anim", &"Pistol_Transitions", 2, &"Pistol_Sprint_Anim", &"Pistol_Transitions", 3, &"Pistol_Aim_Anim", &"Pistol_Transitions", 4, &"Pistol_Jump", &"Pistol_Unequip", 0, &"Pistol_Reload", &"Pistol_Unequip", 1, &"Pistol_Unequip_Anim", &"Vector_Aimer", 0, &"Vector_Shoot", &"Vector_Aimer", 1, &"Vector_Aim_Shoot", &"Vector_Equip", 0, &"Vector_Aimer", &"Vector_Equip", 1, &"Vector_Equip_Anim", &"Vector_Reload", 0, &"Vector_Equip", &"Vector_Reload", 1, &"Vector_Reload_Anim", &"Vector_Shoot", 0, &"Vector_Transitions", &"Vector_Shoot", 1, &"Vector_Shoot_Anim", &"Vector_Transitions", 0, &"Vector_Idle", &"Vector_Transitions", 1, &"Vector_Walk", &"Vector_Transitions", 2, &"Vector_Sprint", &"Vector_Transitions", 3, &"Vector_Aim_Anim", &"Vector_Transitions", 4, &"Vector_Jump", &"Vector_Unequip", 0, &"Vector_Reload", &"Vector_Unequip", 1, &"Vector_Unequip_Anim", &"output", 0, &"Main_Transition"]
+nodes/output/position = Vector2(2100, 880)
+node_connections = [&"Main_Transition", 0, &"Pistol_Shoot", &"Main_Transition", 1, &"Vector_Unequip", &"Pistol_Aimer", 0, &"Pistol_Equip", &"Pistol_Aimer", 1, &"Pistol_Aim_Shoot", &"Pistol_Equip", 0, &"Pistol_Transitions", &"Pistol_Equip", 1, &"Pistol_Equip_Anim", &"Pistol_Reload", 0, &"Pistol_Aimer", &"Pistol_Reload", 1, &"Pistol_Reload_Anim", &"Pistol_Shoot", 0, &"Pistol_Unequip", &"Pistol_Shoot", 1, &"Pistol_Shoot_Anim", &"Pistol_Transitions", 0, &"PistolIdleAnim", &"Pistol_Transitions", 1, &"Pistol_Walk_Anim", &"Pistol_Transitions", 2, &"Pistol_Sprint_Anim", &"Pistol_Transitions", 3, &"Pistol_Aim_Anim", &"Pistol_Transitions", 4, &"Pistol_Jump", &"Pistol_Unequip", 0, &"Pistol_Reload", &"Pistol_Unequip", 1, &"Pistol_Unequip_Anim", &"Vector_Aimer", 0, &"Vector_Shoot", &"Vector_Aimer", 1, &"Vector_Aim_Shoot", &"Vector_Equip", 0, &"Vector_Aimer", &"Vector_Equip", 1, &"Vector_Equip_Anim", &"Vector_Reload", 0, &"Vector_Equip", &"Vector_Reload", 1, &"Vector_Reload_Anim", &"Vector_Shoot", 0, &"Vector_Transitions", &"Vector_Shoot", 1, &"Vector_Shoot_Anim", &"Vector_Transitions", 0, &"Vector_Idle", &"Vector_Transitions", 1, &"Vector_Walk", &"Vector_Transitions", 2, &"Vector_Sprint", &"Vector_Transitions", 3, &"Vector_Aim_Anim", &"Vector_Transitions", 4, &"Vector_Jump", &"Vector_Unequip", 0, &"Vector_Reload", &"Vector_Unequip", 1, &"Vector_Unequip_Anim", &"output", 0, &"Main_Transition"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ieo8"]
+font = ExtResource("3_8t03j")
+font_size = 28
+font_color = Color(0, 0, 0, 1)
+outline_size = 8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8t03j"]
 
 [node name="FPSCharacter" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_oul6g")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -1664,15 +1684,15 @@ unique_name_in_owner = true
 root_node = NodePath("%AnimationTree/..")
 tree_root = SubResource("AnimationNodeBlendTree_e7oew")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Main_Transition/current_state = "Vector"
+parameters/Main_Transition/current_state = "Pistol"
 parameters/Main_Transition/transition_request = ""
-parameters/Main_Transition/current_index = 1
+parameters/Main_Transition/current_index = 0
 parameters/Pistol_Aimer/active = 0.0
 parameters/Pistol_Aimer/internal_active = 0.6
 parameters/Pistol_Aimer/request = 0
 parameters/Pistol_Equip/active = false
 parameters/Pistol_Equip/internal_active = false
-parameters/Pistol_Equip/request = 1
+parameters/Pistol_Equip/request = 0
 parameters/Pistol_Reload/active = false
 parameters/Pistol_Reload/internal_active = false
 parameters/Pistol_Reload/request = 0
@@ -1684,7 +1704,7 @@ parameters/Pistol_Transitions/transition_request = ""
 parameters/Pistol_Transitions/current_index = 0
 parameters/Pistol_Unequip/active = false
 parameters/Pistol_Unequip/internal_active = false
-parameters/Pistol_Unequip/request = 1
+parameters/Pistol_Unequip/request = 0
 parameters/Vector_Aimer/active = false
 parameters/Vector_Aimer/internal_active = false
 parameters/Vector_Aimer/request = 0
@@ -1719,7 +1739,17 @@ one_shot = true
 
 [node name="AdsTimer" type="Timer" parent="CollisionShape3D/Head/mainCamera/Weapons_Manager/FPS_Rig"]
 unique_name_in_owner = true
-wait_time = 0.13
+wait_time = 0.15
+one_shot = true
+
+[node name="SprintTimer" type="Timer" parent="CollisionShape3D/Head/mainCamera/Weapons_Manager/FPS_Rig"]
+unique_name_in_owner = true
+wait_time = 0.15
+one_shot = true
+
+[node name="JumpTimer" type="Timer" parent="CollisionShape3D/Head/mainCamera/Weapons_Manager/FPS_Rig"]
+unique_name_in_owner = true
+wait_time = 0.08
 one_shot = true
 
 [node name="Bullet_Point" type="Marker3D" parent="CollisionShape3D/Head/mainCamera/Weapons_Manager/FPS_Rig"]
@@ -1727,6 +1757,39 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, -1.95578e-08, 0, 1, 0, 1.95578e-08, 0, 1, 0.254917, -0.084242, -0.582858)
 gizmo_extents = 0.0
 
+[node name="InteractRay" type="RayCast3D" parent="CollisionShape3D/Head/mainCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00792909, 0.04)
+target_position = Vector3(0, 0, -3)
+collision_mask = 9
+script = ExtResource("11_2ieo8")
+
+[node name="InteractionHUD" type="Label" parent="CollisionShape3D/Head/mainCamera"]
+unique_name_in_owner = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -52.0
+offset_right = 20.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "hey"
+label_settings = SubResource("LabelSettings_2ieo8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pickup_Detection" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickup_Detection"]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0.855, 0)
+shape = SubResource("BoxShape3D_8t03j")
+
 [connection signal="Update_Ammo" from="CollisionShape3D/Head/mainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_update_ammo"]
 [connection signal="Update_Weapon_Stack" from="CollisionShape3D/Head/mainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_update_weapon_stack"]
 [connection signal="Weapon_Changed" from="CollisionShape3D/Head/mainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_weapon_changed"]
+[connection signal="body_entered" from="Pickup_Detection" to="CollisionShape3D/Head/mainCamera/Weapons_Manager" method="_on_pickup_detection_body_entered"]
